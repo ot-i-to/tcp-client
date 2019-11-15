@@ -1,3 +1,8 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<body lang="ru-RU" dir="ltr">
+
 # tcp-client
 
 program build Linux32
@@ -19,4 +24,7 @@ tcp-client -help
 	Период создания иходящего файла. Формат: 10s = 10 секунд, 10m = 10 минут, 10h = 10 часов, 10d = 10 дней и т.д. (default 1h0m0s)
 
 build go version go1.13.3 linux/amd64
+
+</body>
+</html>
 
