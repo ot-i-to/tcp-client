@@ -92,7 +92,7 @@ func main() {
 				break
 			}
 			fmt.Println(err)
-			time.Sleep(time.Second)
+			time.Sleep(time.Second * 10)
 		}
 	}
 
@@ -105,14 +105,19 @@ func main() {
 		//default:
 		message, err1 := buf.ReadString('\n')
 		if err1 == io.EOF {
+			if dlevel > 0 {
+				p(t.Format("2006-01-02 15:04:05") + " - Error connect Server.")
+				//fmt.Println(err1)
+			}
 			lsconn.Close()
 			connect()
+			time.Sleep(time.Second * 10)
 		} else {
 			if dlevel > 1 {
 				fmt.Print(message)
 			}
 
-			f, errf := os.OpenFile(dout+"/out.tmp", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0664)
+			f, errf := os.OpenFile(dout+"/out.tmp", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0600)
 			if errf != nil {
 				fmt.Println(errf)
 				os.Exit(1)
