@@ -1,30 +1,44 @@
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 6.0.7.3 (Linux)"/>
+	<meta name="created" content="2019-11-15T16:17:46.960173317"/>
+	<meta name="changed" content="2019-11-15T16:22:31.905215543"/>
+	<style type="text/css">
+		@page { margin: 2cm }
+		p { margin-bottom: 0.25cm; line-height: 115% }
+	</style>
+</head>
 <body lang="ru-RU" dir="ltr">
+<p style="margin-bottom: 0cm; line-height: 100%">The program is built
+for linux 32bit in GOLANG 1.13.3 linux64 environment</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
 
-# tcp-client
+</p>
+<p style="margin-bottom: 0cm; line-height: 100%">tcp-client -help</p>
+<p style="margin-bottom: 0cm; line-height: 100%">-dlevel [int]
+.......... Уровень отладки. 0 - Err, 1 - Info, 2 - All</p>
+<p style="margin-bottom: 0cm; line-height: 100%">-dout [string]
+......... Путь расположения исходящих
+файлов. (default &quot;out&quot;)</p>
+<p style="margin-bottom: 0cm; line-height: 100%">-fout [string]
+......... Расширение исходящего файла.
+(default &quot;log&quot;)</p>
+<p style="margin-bottom: 0cm; line-height: 100%">-ipaddr [string]
+....... IP аддрес сервера. (default &quot;127.0.0.1&quot;)</p>
+<p style="margin-bottom: 0cm; line-height: 100%">-ipport [string]
+....... IP порт сервера. (default &quot;10113&quot;)</p>
+<p style="margin-bottom: 0cm; line-height: 100%">-maxproc [int]
+......... Максимальное кол-во одновременных
+потоков. (default 1)</p>
+<p style="margin-bottom: 0cm; line-height: 100%">-trotate [duration]
+.... Период создания иходящего файла.
+Формат: 10s = 10 секунд, 10m = 10 минут, 10h = 10
+часов, 10d = 10 дней и т.д. (default 1h0m0s)</p>
+<p style="margin-bottom: 0cm; line-height: 100%"><br/>
 
-program build Linux32
-
-tcp-client -help
-  -dlevel int
-	Уровень отладки. 0 - Err, 1 - Info, 2 - All
-  -dout string
-	Путь расположения исходящих файлов. (default "out")
-  -fout string
-	Расширение исходящего файла. (default "log")
-  -ipaddr string
-	IP аддрес сервера. (default "127.0.0.1")
-  -ipport string
-	IP порт сервера. (default "10113")
-  -maxproc int
-	Максимальное кол-во одновременных потоков. (default 1)
-  -trotate duration
-	Период создания иходящего файла. Формат: 10s = 10 секунд, 10m = 10 минут, 10h = 10 часов, 10d = 10 дней и т.д. (default 1h0m0s)
-
-build go version go1.13.3 linux/amd64
-
+</p>
 </body>
 </html>
-
