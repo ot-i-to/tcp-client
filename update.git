@@ -1,0 +1,5 @@
+#!/bin/sh
+info=`date +%s`
+git add -A
+git commit -m "$info"
+git push -u origin master
