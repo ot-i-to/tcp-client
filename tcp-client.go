@@ -76,6 +76,9 @@ func main() {
 				} else {
 					if dlevel > 0 {
 						fmt.Println(tf1.Format("2006-01-02 15:04:05") + " - Create NEW file: " + newFile)
+						if err := os.Chmod(newFile, 0644); err != nil {
+							fmt.Println(err)
+						}
 					}
 
 				}
