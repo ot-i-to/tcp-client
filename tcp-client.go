@@ -10,11 +10,14 @@ import (
 	"os"
 	"runtime"
 	"time"
+
+	"gopkg.in/robfig/cron.v3"
 )
 
 func main() {
 	p := fmt.Println
 	t := time.Now()
+	c := cron.New()
 
 	var lsconn net.Conn
 	var err error
@@ -26,7 +29,9 @@ func main() {
 	var ipaddr string
 	var ipport string
 	var dout string
+	var rotate int
 	var trotate time.Duration
+	var crotate string
 
 	flag.IntVar(&maxproc, "maxproc", 1, "Максимальное кол-во одновременных потоков.")
 	flag.IntVar(&dlevel, "dlevel", 0, "Уровень отладки. 0 - Err, 1 - Info, 2 - All")
@@ -34,9 +39,13 @@ func main() {
 	flag.StringVar(&ipport, "ipport", "10113", "IP порт сервера.")
 	flag.StringVar(&fout, "fout", "log", "Расширение исходящего файла.")
 	flag.StringVar(&dout, "dout", "out", "Путь расположения исходящих файлов.")
+	flag.IntVar(&rotate, "rotate", 1, "Метод ротации файлов по времени. 0 - через указанный интервал согласно параметра 'trotate' или 1 - по переменной 'crotate'")
 	flag.DurationVar(&trotate, "trotate", 3600000000000, "Период создания иходящего файла. Формат: 10s = 10 секунд, 10m = 10 минут, 10h = 10 часов, 10d = 10 дней и т.д.")
+	flag.StringVar(&crotate, "crotate", "0 0-23 * * *", "Период создания исходящего файла в формате cron (https://en.wikipedia.org/wiki/Cron).")
 
 	flag.Parse()
+
+	c.Start()
 
 	p("==========================================================================================")
 
@@ -45,7 +54,9 @@ func main() {
 	fmt.Println("ipport:", ipport)
 	fmt.Println("fout:", fout)
 	fmt.Println("dout:", dout)
+	fmt.Println("rotate:", rotate)
 	fmt.Println("trotate:", trotate)
+	fmt.Println("crotate:", crotate)
 
 	numcpu := runtime.NumCPU()
 	fmt.Println("NumCPU", numcpu)
@@ -64,10 +75,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	go func() {
-		for {
-			select {
-			case <-time.After(trotate):
+	c.AddFunc(crotate, func() {
+		//fmt.Println("Cron funcion ---- " + time.Now().Format("2006-01-02 15:04:05"))
+		if rotate == 1 {
+			if len(crotate) != 0 {
 				tf1 := time.Now()
 				newFile := dout + "/" + tf1.Format("20060102150405") + "." + fout
 				err := os.Rename(dout+"/out.tmp", newFile)
@@ -80,11 +91,38 @@ func main() {
 							fmt.Println(err)
 						}
 					}
-
 				}
+			} else {
+				os.Exit(1)
 			}
 		}
-	}()
+	})
+
+	if rotate == 0 {
+		if trotate != 0 {
+			go func() {
+				for {
+					select {
+					case <-time.After(trotate):
+						tf1 := time.Now()
+						newFile := dout + "/" + tf1.Format("20060102150405") + "." + fout
+						err := os.Rename(dout+"/out.tmp", newFile)
+						if err != nil {
+							fmt.Println(err)
+						} else {
+							if dlevel > 0 {
+								fmt.Println(tf1.Format("2006-01-02 15:04:05") + " - Create NEW file: " + newFile)
+								if err := os.Chmod(newFile, 0644); err != nil {
+									fmt.Println(err)
+								}
+							}
+
+						}
+					}
+				}
+			}()
+		}
+	}
 
 	connect := func() {
 		// непрерывное подключение к сокету
