@@ -30,14 +30,14 @@ for linux 32bit in GOLANG 1.13.3 linux64 environment</p>
 <p style="margin-bottom: 0cm; line-height: 100%">-maxproc [int]</p>
 <p style="margin-bottom: 0cm; line-height: 100%">	Максимальное
 кол-во одновременных потоков. (default 1)</p>
-<p style="margin-bottom: 0cm; line-height: 100%">-crotate [string]</p>
-<p style="margin-bottom: 0cm; line-height: 100%">    	Период создания 
-исходящего файла в формате cron (https://en.wikipedia.org/wiki/Cron). 
-(default "0 0-23 * * *")</p>
 <p style="margin-bottom: 0cm; line-height: 100%">-rotate [int]</p>
 <p style="margin-bottom: 0cm; line-height: 100%">      Метод ротации 
 файлов по времени. 0 - через указанный интервал согласно параметра 'trotate' 
 или 1 - по переменной 'crotate' (default 1)</p>
+<p style="margin-bottom: 0cm; line-height: 100%">-crotate [string]</p>
+<p style="margin-bottom: 0cm; line-height: 100%">    	Период создания 
+исходящего файла в формате cron (https://en.wikipedia.org/wiki/Cron). 
+(default "0 0-23 * * *")</p>
 <p style="margin-bottom: 0cm; line-height: 100%">-trotate [duration]</p>
 <p style="margin-bottom: 0cm; line-height: 100%">	Период
 создания иходящего файла. 
